@@ -1,5 +1,6 @@
 name: crisp
-description: Connect with Crisp Chat, register a user to chat (or not) and render a chat widget.
+description: Connect with Crisp Chat, register a user to chat (or not) and
+  render a chat widget.
 version: 0.3.1
 homepage: https://github.com/lunahq/flutter-crisp
 
@@ -10,10 +11,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  url_launcher: ^6.0.9
-  flutter_inappwebview: ^5.3.2
+  flutter_inappwebview: ^5.7.2+3
+  url_launcher: ^6.1.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-flutter:
+flutter: null
