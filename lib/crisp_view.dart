@@ -30,8 +30,8 @@ class CrispView extends StatefulWidget {
   final bool clearCache;
   final void Function(String url)? onLinkPressed;
 
-  ///Set to true to make the background of the WebView transparent. 
-  ///If your app has a dark theme, 
+  ///Set to true to make the background of the WebView transparent.
+  ///If your app has a dark theme,
   ///this can prevent a white flash on initialization. The default value is false.
   final bool transparentBackground;
   @override
@@ -49,25 +49,19 @@ class _CrispViewState extends State<CrispView> {
   InAppWebViewController? _webViewController;
   String? _javascriptString;
 
-  late InAppWebViewGroupOptions _options;
+  late InAppWebViewSettings _options;
 
   @override
   void initState() {
     super.initState();
-    _options = InAppWebViewGroupOptions(
-      crossPlatform: InAppWebViewOptions(
-        transparentBackground: widget.transparentBackground,
-        clearCache: widget.clearCache,
-        useShouldOverrideUrlLoading: true,
-        mediaPlaybackRequiresUserGesture: false,
-      ),
-      android: AndroidInAppWebViewOptions(
-        useHybridComposition: true,
-        cacheMode: AndroidCacheMode.LOAD_CACHE_ELSE_NETWORK,
-      ),
-      ios: IOSInAppWebViewOptions(
-        allowsInlineMediaPlayback: true,
-      ),
+    _options = InAppWebViewSettings(
+      transparentBackground: widget.transparentBackground,
+      clearCache: widget.clearCache,
+      useShouldOverrideUrlLoading: true,
+      mediaPlaybackRequiresUserGesture: false,
+      useHybridComposition: true,
+      cacheMode: CacheMode.LOAD_CACHE_ELSE_NETWORK,
+      allowsInlineMediaPlayback: true,
     );
 
     _javascriptString = """
@@ -92,13 +86,13 @@ class _CrispViewState extends State<CrispView> {
           ),
         ),
       initialUrlRequest: URLRequest(
-        url: Uri.parse(_crispEmbedUrl(
+        url: WebUri.uri(Uri.parse(_crispEmbedUrl(
           websiteId: widget.crispMain.websiteId,
           locale: widget.crispMain.locale,
           userToken: widget.crispMain.userToken,
-        )),
+        ))),
       ),
-      initialOptions: _options,
+      initialSettings: _options,
       onWebViewCreated: (InAppWebViewController controller) {
         _webViewController = controller;
       },
